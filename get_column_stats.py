@@ -15,13 +15,26 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-f = open(args.file_name, 'r')
+try:
+    f = open(args.file_name, 'r')
+except FileNotFoundError:
+    sys.stderr.write("ERROR: File not found. Try a different file name.")
+    sys.exit(1)
+
 
 V = []
 
 for l in f:
-    A = [int(x) for x in l.split()]
-    V.append(A[args.col_num])
+    try:
+        A = [int(x) for x in l.split()]
+        V.append(A[args.col_num])
+    except ValueError:
+        sys.stderr.write("ERROR: Bad value. Only works on integer values.")
+        sys.exit(1)
+    except IndexError:
+        sys.stderr.write(
+            "ERROR: Index out of range. Try a different column number.")
+        sys.exit(1)
 
 mean = sum(V)/len(V)
 
