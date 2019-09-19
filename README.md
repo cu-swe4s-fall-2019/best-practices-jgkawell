@@ -16,8 +16,14 @@ You can also run the functional tests with the simple command:
 ./basics_test.sh
 ```
 
+Additionally, there are now unit tests that can be run:
+
+```
+python basics_test.py
+```
+
 ## Installation
-The project only requires cloning the repository and making sure that you have Python installed. In order to run the functional testing, you'll have to also have installed `pycodestyle` through pip and you need to make the testing script executable:
+The project only requires cloning the repository and making sure that you have Python 3 installed. In order to run the functional testing, you'll have to also have installed `pycodestyle` through pip and you may need to make the testing script executable:
 
 ```
 pip install pycodestyle
