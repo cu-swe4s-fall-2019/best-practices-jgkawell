@@ -13,32 +13,57 @@ parser.add_argument(
     type=int,
     help='The column to calculate stats for (starts at 0)')
 
-args = parser.parse_args()
 
-try:
-    f = open(args.file_name, 'r')
-except FileNotFoundError:
-    sys.stderr.write("ERROR: File not found. Try a different file name.")
-    sys.exit(1)
-
-
-V = []
-
-for l in f:
-    try:
+def getValues(f, col_num):
+    V = []
+    for l in f:
         A = [int(x) for x in l.split()]
-        V.append(A[args.col_num])
+        V.append(A[col_num])
+
+    return V
+
+
+def getMean(V):
+    return sum(V) / len(V)
+
+
+def getStDev(V):
+    mean = getMean(V)
+    return math.sqrt(sum([(mean-x)**2 for x in V]) / len(V))
+
+
+def printResults(mean, stdev):
+    print('mean:', mean)
+    print('stdev:', stdev)
+
+
+if __name__ == "__main__":
+
+    args = parser.parse_args()
+
+    try:
+        f = open(args.file_name, 'r')
+    except FileNotFoundError:
+        sys.stderr.write("ERROR: File not found. Try a different file name.\n")
+        sys.exit(1)
+
+    try:
+        V = getValues(f, args.col_num)
     except ValueError:
-        sys.stderr.write("ERROR: Bad value. Only works on integer values.")
+        sys.stderr.write(
+            "ERROR: Bad value. Only works on integer values.\n")
         sys.exit(1)
     except IndexError:
         sys.stderr.write(
-            "ERROR: Index out of range. Try a different column number.")
+            "ERROR: Index out of range. Try a different column number.\n")
         sys.exit(1)
 
-mean = sum(V)/len(V)
+    try:
+        mean = getMean(V)
+        stdev = getStDev(V)
+    except ZeroDivisionError:
+        sys.stderr.write(
+            "ERROR: Division by zero. Is the data blank?\n")
+        sys.exit(1)
 
-stdev = math.sqrt(sum([(mean-x)**2 for x in V]) / len(V))
-
-print('mean:', mean)
-print('stdev:', stdev)
+    printResults(mean, stdev)
