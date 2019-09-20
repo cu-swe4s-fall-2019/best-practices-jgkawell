@@ -13,9 +13,9 @@ class TestGetColumnStats(unittest.TestCase):
             for j in range(0, 500):
                 V.append(random.randint(-1000, 1000))
 
-            self.assertEqual(
-                round(get_column_stats.getMean(V), 3),
-                round(statistics.mean(V), 3))
+            self.assertAlmostEqual(
+                get_column_stats.getMean(V),
+                statistics.mean(V))
 
     def test_stdev(self):
         for i in range(0, 500):
@@ -23,9 +23,9 @@ class TestGetColumnStats(unittest.TestCase):
             for j in range(0, 500):
                 V.append(random.randint(-1000, 1000))
 
-            self.assertEqual(
-                round(get_column_stats.getStDev(V), 3),
-                round(statistics.pstdev(V), 3))
+            self.assertAlmostEqual(
+                get_column_stats.getStDev(V),
+                statistics.pstdev(V))
 
     def test_mean_error(self):
         V = []
