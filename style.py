@@ -30,7 +30,7 @@ def oops():
     print('oops')
 
 
-def FindSum(var_one, var_two, var_three, var_four):
+def find_sum(var_one, var_two, var_three, var_four):
     s = var_one + var_two + var_three + var_four
     return s
 
@@ -48,13 +48,13 @@ var_two = 1
 var_three = 1
 var_four = 1
 
-s = FindSum(var_one, var_two, var_three, var_four)
+s = find_sum(var_one, var_two, var_three, var_four)
 
 print(s)
 
-A = [1, 2, 3, 4, 5]
+array = [1, 2, 3, 4, 5]
 
-print(A[1], {'foo': 2})
+print(array[1], {'foo': 2})
 
 x = 1
 y = 2

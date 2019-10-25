@@ -14,7 +14,7 @@ class TestGetColumnStats(unittest.TestCase):
                 V.append(random.randint(-1000, 1000))
 
             self.assertAlmostEqual(
-                get_column_stats.getMean(V),
+                get_column_stats.get_mean(V),
                 statistics.mean(V))
 
     def test_stdev(self):
@@ -24,16 +24,16 @@ class TestGetColumnStats(unittest.TestCase):
                 V.append(random.randint(-1000, 1000))
 
             self.assertAlmostEqual(
-                get_column_stats.getStDev(V),
+                get_column_stats.get_stdev(V),
                 statistics.pstdev(V))
 
     def test_mean_error(self):
         V = []
-        self.assertRaises(ZeroDivisionError, get_column_stats.getMean, V)
+        self.assertRaises(ZeroDivisionError, get_column_stats.get_mean, V)
 
     def test_stdev_error(self):
         V = []
-        self.assertRaises(ZeroDivisionError, get_column_stats.getStDev, V)
+        self.assertRaises(ZeroDivisionError, get_column_stats.get_stdev, V)
 
 
 if __name__ == '__main__':

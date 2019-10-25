@@ -14,25 +14,25 @@ parser.add_argument(
     help='The column to calculate stats for (starts at 0)')
 
 
-def getValues(f, col_num):
-    V = []
+def get_values(f, col_num):
+    values = []
     for l in f:
-        A = [int(x) for x in l.split()]
-        V.append(A[col_num])
+        array = [int(x) for x in l.split()]
+        values.append(array[col_num])
 
-    return V
-
-
-def getMean(V):
-    return sum(V) / len(V)
+    return values
 
 
-def getStDev(V):
-    mean = getMean(V)
-    return math.sqrt(sum([(mean-x)**2 for x in V]) / len(V))
+def get_mean(values):
+    return sum(values) / len(values)
 
 
-def printResults(mean, stdev):
+def get_stdev(values):
+    mean = get_mean(values)
+    return math.sqrt(sum([(mean-x)**2 for x in values]) / len(values))
+
+
+def print_results(mean, stdev):
     print('mean:', mean)
     print('stdev:', stdev)
 
@@ -48,7 +48,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     try:
-        V = getValues(f, args.col_num)
+        values = get_values(f, args.col_num)
     except ValueError:
         sys.stderr.write(
             "ERROR: Bad value. Only works on integer values.\n")
@@ -59,11 +59,11 @@ if __name__ == "__main__":
         sys.exit(1)
 
     try:
-        mean = getMean(V)
-        stdev = getStDev(V)
+        mean = get_mean(values)
+        stdev = get_stdev(values)
     except ZeroDivisionError:
         sys.stderr.write(
             "ERROR: Division by zero. Is the data blank?\n")
         sys.exit(1)
 
-    printResults(mean, stdev)
+    print_results(mean, stdev)
